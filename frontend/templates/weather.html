@@ -21,17 +21,14 @@
   {% endif %}
 
   {% if weather %}
-  <div class="row g-3">
-    <div class="col-md-6">
-      <div class="card p-3">
+  
+      <div class="card p-3 text-center">
         <h4>{{ weather.current.city }} — Current</h4>
         <p><strong>Temp:</strong> {{ weather.current.temperature }}°C</p>
         <p><strong>Source:</strong> {{ weather.current.source }}</p>
         <p><strong>Description:</strong> {{ weather.current.description or '—' }}</p>
       </div>
-    </div>
-    
-  </div>
+   
   {% endif %}
 </div>
 </body>

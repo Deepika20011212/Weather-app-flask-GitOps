@@ -17,8 +17,7 @@ spec:
           image: redis:7-alpine
           ports:
             - containerPort: 6379
-          command: ["redis-server", "--save", "", "--appendonly", "no"]
-
+          
 ---
 
 apiVersion: apps/v1
@@ -42,7 +41,7 @@ spec:
     spec:
       containers:
         - name: weather
-          image: itdeepikar747/weather-service:latest
+          image: itdeepikar747/weather_service:latest
           ports:
             - containerPort: 5001
           env:
@@ -88,7 +87,7 @@ spec:
     spec:
       containers:
         - name: air
-          image: itdeepikar747/air-service:latest
+          image: itdeepikar747/air_service:latest
           ports:
             - containerPort: 5002
           env:
@@ -134,7 +133,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: <REGISTRY>/frontend:latest
+          image: itdeepikar747/frontend:latest
           ports:
             - containerPort: 5000
           env:

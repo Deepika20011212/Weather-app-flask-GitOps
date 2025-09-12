@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Weather Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style> body{background:#e8f7ff} .card{border-radius:12px;} </style>
+</head>
+<body>
+<div class="container py-4">
+  <a href="/" class="btn btn-link">&larr; Back</a>
+  <h2 class="text-center mb-3">🌤 Weather Dashboard</h2>
+
+  <form method="POST" class="text-center mb-4">
+    <input name="city" class="form-control d-inline w-50" placeholder="Enter city" required>
+    <button class="btn btn-primary ms-2">Get Weather</button>
+  </form>
+
+  {% if error %}
+    <div class="alert alert-danger">{{ error }}</div>
+  {% endif %}
+
+  {% if weather %}
+  <div class="row g-3">
+    <div class="col-md-6">
+      <div class="card p-3">
+        <h4>{{ weather.current.city }} — Current</h4>
+        <p><strong>Temp:</strong> {{ weather.current.temperature }}°C</p>
+        <p><strong>Source:</strong> {{ weather.current.source }}</p>
+        <p><strong>Description:</strong> {{ weather.current.description or '—' }}</p>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card p-3">
+        <h4>5-Day Forecast</h4>
+        <ul class="list-group">
+          {% for d in weather.forecast %}
+            <li class="list-group-item">{{ d.day }} — {{ d.temperature }}°C — {{ d.description }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</div>
+</body>
+</html>

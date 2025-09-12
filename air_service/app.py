@@ -61,3 +61,5 @@ def air(city):
     if r:
         r.set(key, repr(payload), ex=300)
     return jsonify(payload)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5002, debug=True)

@@ -74,3 +74,5 @@ def forecast(city):
             "desc": item["weather"][0]["description"]
         })
     return jsonify({"city": city, "forecast": out})
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5001, debug=True)

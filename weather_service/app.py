@@ -65,14 +65,16 @@ def forecast(city):
     resp = requests.get(OW_FORECAST, params=params, timeout=8)
     resp.raise_for_status()
     d = resp.json()
-    # Condense to daily forecast (simple)
+
     out = []
-    for item in d.get("list", [])[:40]:
+    for item in d.get("list", [])[:5 * 8:8]:  # 5 days (every 8th = 1 per day)
+        day = time.strftime("%a", time.localtime(item["dt"]))
         out.append({
-            "ts": item["dt"],
-            "temp": item["main"]["temp"],
-            "desc": item["weather"][0]["description"]
+            "day": day,
+            "temperature": round(item["main"]["temp"], 1),
+            "description": item["weather"][0]["description"]
         })
+
     return jsonify({"city": city, "forecast": out})
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5001, debug=True)

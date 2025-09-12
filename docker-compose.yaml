@@ -1,0 +1,49 @@
+version: "3.8"
+services:
+  redis:
+    image: redis:7
+    command: ["redis-server", "--save", "", "--appendonly", "no"]
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD","redis-cli","ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  weather-service:
+    build: ./weather_service
+    ports:
+      - "5001:5001"
+    environment:
+      - OPENWEATHER_API_KEY=0a8c75ab445dfbd93f1ac7972d097e40
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - USE_REDIS=true
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  air-service:
+    build: ./air_service
+    ports:
+      - "5002:5002"
+    environment:
+      - OPENWEATHER_API_KEY=0a8c75ab445dfbd93f1ac7972d097e40
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - USE_REDIS=true
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5000:5000"
+    environment:
+      - WEATHER_API_BASE=http://weather-service:5001
+      - AIR_API_BASE=http://air-service:5002
+    depends_on:
+      - weather-service
+      - air-service

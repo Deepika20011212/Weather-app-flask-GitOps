@@ -1,4 +1,5 @@
 name: CI-CD Weather-Air-App 
+
 on:
   push:
     branches: [main]
@@ -16,6 +17,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PAT_TOKEN }}   
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -40,6 +43,8 @@ jobs:
     needs: build-test-analyze
     steps:
       - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PAT_TOKEN }}   
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -117,12 +122,11 @@ jobs:
           sed -i "s|weatherService:.*|weatherService: ${WEATHER_IMAGE}|g" $HELM_CHART_DIR/values.yaml
           sed -i "s|airService:.*|airService: ${AIR_IMAGE}|g" $HELM_CHART_DIR/values.yaml
           sed -i "s|frontend:.*|frontend: ${FRONTEND_IMAGE}|g" $HELM_CHART_DIR/values.yaml
+
       - name: Commit and Push changes
         run: |
           git config --global user.email "rdeepika121201@gmail.com"
           git config --global user.name "Deepika20011212"
-          git remote set-url origin https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }}
           git add $HELM_CHART_DIR/values.yaml
           git commit -m "[skip ci] Update Helm chart with new ECR image ${{ github.run_id }}" || echo "No changes to commit"
           git push
-

@@ -5,8 +5,9 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: nginx
 spec:
+  ingressClassName: nginx
   rules:
-    - host: weather.local
+    - host: weather-air-check.com
       http:
         paths:
           - path: /

@@ -119,9 +119,10 @@ jobs:
 
       - name: Update values.yaml
         run: |
-          sed -i "s|weatherService:.*|weatherService: ${WEATHER_IMAGE}|g" $HELM_CHART_DIR/values.yaml
-          sed -i "s|airService:.*|airService: ${AIR_IMAGE}|g" $HELM_CHART_DIR/values.yaml
-          sed -i "s|frontend:.*|frontend: ${FRONTEND_IMAGE}|g" $HELM_CHART_DIR/values.yaml
+          sed -i "/weatherService:/!b;n;s|image:.*|image: ${WEATHER_IMAGE}|" $HELM_CHART_DIR/values.yaml
+          sed -i "/airService:/!b;n;s|image:.*|image: ${AIR_IMAGE}|" $HELM_CHART_DIR/values.yaml
+          sed -i "/frontend:/!b;n;s|image:.*|image: ${FRONTEND_IMAGE}|" $HELM_CHART_DIR/values.yaml
+
 
       - name: Commit and Push changes
         run: |

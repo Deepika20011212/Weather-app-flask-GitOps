@@ -29,6 +29,7 @@ jobs:
           pip install -r weather_service/requirements.txt
           pip install -r air_service/requirements.txt
           pip install -r frontend/requirements.txt
+          pip install pytest
 
       - name: Run Unit Tests
         run: |

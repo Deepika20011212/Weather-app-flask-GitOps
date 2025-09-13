@@ -1,3 +1,6 @@
+{{- $replicas := .Values.replicaCount }}
+
+# Redis Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -14,26 +17,28 @@ spec:
     spec:
       containers:
         - name: redis
-          image: redis:7-alpine
+          image: {{ .Values.redis.image }}
           ports:
-            - containerPort: 6379
-          
+            - containerPort: {{ .Values.redis.port }}
+          command: ["redis-server","--save","","--appendonly","no"]
+
 ---
 
+# Weather Service Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: weather-service
 spec:
-  replicas: 2
+  replicas: {{ $replicas }}
   selector:
     matchLabels:
       app: weather-service
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 0
       maxSurge: 1
+      maxUnavailable: 0
   template:
     metadata:
       labels:
@@ -41,45 +46,46 @@ spec:
     spec:
       containers:
         - name: weather
-          image: itdeepikar747/weather_service:latest
+          image: {{ .Values.weatherService.image }}
           ports:
-            - containerPort: 5001
+            - containerPort: {{ .Values.weatherService.port }}
           env:
             - name: REDIS_HOST
-              value: "redis"
+              value: {{ .Values.weatherService.redisHost }}
             - name: REDIS_PORT
-              value: "6379"
+              value: "{{ .Values.weatherService.redisPort }}"
             - name: OPENWEATHER_API_KEY
-              value: "0a8c75ab445dfbd93f1ac7972d097e40"
+              value: {{ .Values.weatherService.openWeatherApiKey }}
           readinessProbe:
             httpGet:
               path: /health
-              port: 5001
+              port: {{ .Values.weatherService.port }}
             initialDelaySeconds: 5
             periodSeconds: 5
           livenessProbe:
             httpGet:
               path: /health
-              port: 5001
+              port: {{ .Values.weatherService.port }}
             initialDelaySeconds: 30
             periodSeconds: 20
 
 ---
 
+# Air Service Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: air-service
 spec:
-  replicas: 2
+  replicas: {{ $replicas }}
   selector:
     matchLabels:
       app: air-service
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 0
       maxSurge: 1
+      maxUnavailable: 0
   template:
     metadata:
       labels:
@@ -87,45 +93,46 @@ spec:
     spec:
       containers:
         - name: air
-          image: itdeepikar747/air_service:latest
+          image: {{ .Values.airService.image }}
           ports:
-            - containerPort: 5002
+            - containerPort: {{ .Values.airService.port }}
           env:
             - name: REDIS_HOST
-              value: "redis"
+              value: {{ .Values.airService.redisHost }}
             - name: REDIS_PORT
-              value: "6379"
+              value: "{{ .Values.airService.redisPort }}"
             - name: OPENWEATHER_API_KEY
-              value: "0a8c75ab445dfbd93f1ac7972d097e40"
+              value: {{ .Values.airService.openWeatherApiKey }}
           readinessProbe:
             httpGet:
               path: /health
-              port: 5002
+              port: {{ .Values.airService.port }}
             initialDelaySeconds: 5
             periodSeconds: 5
           livenessProbe:
             httpGet:
               path: /health
-              port: 5002
+              port: {{ .Values.airService.port }}
             initialDelaySeconds: 30
             periodSeconds: 20
 
 ---
 
+# Frontend Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend
 spec:
-  replicas: 2
+  replicas: {{ $replicas }}
   selector:
     matchLabels:
       app: frontend
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 0
       maxSurge: 1
+      maxUnavailable: 0
   template:
     metadata:
       labels:
@@ -133,23 +140,23 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: itdeepikar747/frontend:latest
+          image: {{ .Values.frontend.image }}
           ports:
-            - containerPort: 5000
+            - containerPort: {{ .Values.frontend.port }}
           env:
             - name: WEATHER_API_BASE
-              value: "http://weather-service:5001"
+              value: {{ .Values.frontend.weatherApiBase }}
             - name: AIR_API_BASE
-              value: "http://air-service:5002"
+              value: {{ .Values.frontend.airApiBase }}
           readinessProbe:
             httpGet:
               path: /health
-              port: 5000
+              port: {{ .Values.frontend.port }}
             initialDelaySeconds: 5
             periodSeconds: 5
           livenessProbe:
             httpGet:
               path: /health
-              port: 5000
+              port: {{ .Values.frontend.port }}
             initialDelaySeconds: 30
             periodSeconds: 20

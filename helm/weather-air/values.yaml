@@ -5,25 +5,21 @@ redis:
   port: 6379
 
 weatherService:
-  image:
+  image: itdeepikar747/weather-service:latest
   port: 5001
   redisHost: redis
   redisPort: 6379
-  openWeatherApiKey:
+  openWeatherApiKey: "<YOUR_OPENWEATHER_API_KEY>"
 
 airService:
-  image:
+  image: itdeepikar747/air-service:latest
   port: 5002
   redisHost: redis
   redisPort: 6379
-  openWeatherApiKey:
+  openWeatherApiKey: "<YOUR_OPENWEATHER_API_KEY>"
 
 frontend:
-  image: redis:7-alpine
+  image: itdeepikar747/frontend:latest
   port: 5000
   weatherApiBase: http://weather-service:5001
   airApiBase: http://air-service:5002
-
-
-
-

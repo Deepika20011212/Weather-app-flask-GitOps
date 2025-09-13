@@ -59,7 +59,7 @@ jobs:
       # Weather Service
       - name: Build Weather Service Image
         run: |
-          IMAGE="${{ steps.ecr.outputs.registry }}/weather-service:${IMAGE_TAG}"
+          IMAGE="${{ steps.ecr.outputs.registry }}/weather:${IMAGE_TAG}"
           docker build -t $IMAGE ./weather_service
           echo "WEATHER_IMAGE=$IMAGE" >> $GITHUB_ENV
 
@@ -78,7 +78,7 @@ jobs:
       # Air Service
       - name: Build Air Service Image
         run: |
-          IMAGE="${{ steps.ecr.outputs.registry }}/air-service:${IMAGE_TAG}"
+          IMAGE="${{ steps.ecr.outputs.registry }}/air:${IMAGE_TAG}"
           docker build -t $IMAGE ./air_service
           echo "AIR_IMAGE=$IMAGE" >> $GITHUB_ENV
 

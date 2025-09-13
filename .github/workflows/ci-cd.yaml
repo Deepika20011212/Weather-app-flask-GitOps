@@ -1,6 +1,6 @@
 name: CI-CD Weather-Air-App
 on:
-  push:
+  push: 
     branches: [main]
 
 env:

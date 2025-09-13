@@ -1,3 +1,2 @@
 # Weather-app-flask-GitOps
-AKIAZ7SAKUXD4HBBPPOH
-J4G32GY0v4Nsur9auKhKfYWQmHcdQNeUSuhq32SW
+

@@ -1,0 +1,29 @@
+replicaCount: 2
+
+redis:
+  image: redis:7-alpine
+  port: 6379
+
+weatherService:
+  image:
+  port: 5001
+  redisHost: redis
+  redisPort: 6379
+  openWeatherApiKey:
+
+airService:
+  image:
+  port: 5002
+  redisHost: redis
+  redisPort: 6379
+  openWeatherApiKey:
+
+frontend:
+  image: redis:7-alpine
+  port: 5000
+  weatherApiBase: http://weather-service:5001
+  airApiBase: http://air-service:5002
+
+
+
+

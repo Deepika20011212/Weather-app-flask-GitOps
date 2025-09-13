@@ -56,7 +56,7 @@ jobs:
         run: echo "IMAGE_TAG=${GITHUB_SHA}" >> $GITHUB_ENV  
 
       - name: Install Trivy
-        uses: aquasecurity/trivy-action@master
+        uses: aquasecurity/trivy-action@0.12.0
 
       - name: Build and Push Weather Service
         run: |

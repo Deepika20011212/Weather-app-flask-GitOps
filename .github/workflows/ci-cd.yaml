@@ -1,4 +1,4 @@
-name: CI-CD Weather-Air-App
+name: CI-CD Weather-Air-App 
 on:
   push:
     branches: [main]

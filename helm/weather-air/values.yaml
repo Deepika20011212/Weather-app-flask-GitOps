@@ -5,21 +5,21 @@ redis:
   port: 6379
 
 weatherService: 
-  image: 686255941063.dkr.ecr.ap-south-1.amazonaws.com/weather:2623dc414c334185c9baa69dfa8ae76b0cecc822
+  image: 686255941063.dkr.ecr.ap-south-1.amazonaws.com/weather:88dc37a123703828459424ad382b8484cccca3bb
   port: 5001
   redisHost: redis
   redisPort: 6379
   openWeatherApiKey: "0a8c75ab445dfbd93f1ac7972d097e40"
 
 airService: 
-  image: 686255941063.dkr.ecr.ap-south-1.amazonaws.com/air:2623dc414c334185c9baa69dfa8ae76b0cecc822
+  image: 686255941063.dkr.ecr.ap-south-1.amazonaws.com/air:88dc37a123703828459424ad382b8484cccca3bb
   port: 5002
   redisHost: redis
   redisPort: 6379
   openWeatherApiKey: "0a8c75ab445dfbd93f1ac7972d097e40"
 
 frontend: 
-  image: 686255941063.dkr.ecr.ap-south-1.amazonaws.com/frontend:2623dc414c334185c9baa69dfa8ae76b0cecc822
+  image: 686255941063.dkr.ecr.ap-south-1.amazonaws.com/frontend:88dc37a123703828459424ad382b8484cccca3bb
   port: 5000
   weatherApiBase: http://weather-service:5001
   airApiBase: http://air-service:5002

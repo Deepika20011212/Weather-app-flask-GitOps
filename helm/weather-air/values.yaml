@@ -4,22 +4,22 @@ redis:
   image: redis:7-alpine
   port: 6379
 
-weatherService:
+weatherService: 686255941063.dkr.ecr.ap-south-1.amazonaws.com/weather:efbf0b68c9d4c2a5bd7faea644447488c0333382
   image: itdeepikar747/weather-service:latest
   port: 5001
   redisHost: redis
   redisPort: 6379
   openWeatherApiKey: "<YOUR_OPENWEATHER_API_KEY>"
 
-airService:
+airService: 686255941063.dkr.ecr.ap-south-1.amazonaws.com/air:efbf0b68c9d4c2a5bd7faea644447488c0333382
   image: itdeepikar747/air-service:latest
   port: 5002
   redisHost: redis
   redisPort: 6379
   openWeatherApiKey: "<YOUR_OPENWEATHER_API_KEY>"
 
-frontend:
-  image: itdeepikar747/frontend:latest
+frontend: 686255941063.dkr.ecr.ap-south-1.amazonaws.com/frontend:efbf0b68c9d4c2a5bd7faea644447488c0333382
+  image: itdeepikar747/frontend: 686255941063.dkr.ecr.ap-south-1.amazonaws.com/frontend:efbf0b68c9d4c2a5bd7faea644447488c0333382
   port: 5000
   weatherApiBase: http://weather-service:5001
   airApiBase: http://air-service:5002

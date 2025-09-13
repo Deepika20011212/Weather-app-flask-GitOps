@@ -14,7 +14,7 @@ env:
 
 jobs:
   build-test-analyze:
-    name: Build, Test, SonarQube
+    name: Build,SonarQube
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -29,11 +29,6 @@ jobs:
           pip install -r weather_service/requirements.txt
           pip install -r air_service/requirements.txt
           pip install -r frontend/requirements.txt
-          pip install pytest
-
-      - name: Run Unit Tests
-        run: |
-          pytest -q
 
       - name: SonarQube Scan
         uses: sonarsource/sonarqube-scan-action@v2

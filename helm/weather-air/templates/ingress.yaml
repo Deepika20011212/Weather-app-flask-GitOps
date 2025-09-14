@@ -7,7 +7,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: weather-air-check.com
+    - host: www.weather-air-check.linkpc.net
       http:
         paths:
           - path: /

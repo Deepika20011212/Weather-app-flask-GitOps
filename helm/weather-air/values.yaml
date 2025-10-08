@@ -9,14 +9,14 @@ weatherService:
   port: 5001
   redisHost: redis
   redisPort: 6379
-  openWeatherApiKey: "0a8c75ab445dfbd93f1ac7972d097e40"
+  openWeatherApiKey: "Your Api Key here"
 
 airService: 
   image: 686255941063.dkr.ecr.ap-south-1.amazonaws.com/air:05866b3ec6d58741c161ea2bd229d26143f51d95
   port: 5002
   redisHost: redis
   redisPort: 6379
-  openWeatherApiKey: "0a8c75ab445dfbd93f1ac7972d097e40"
+  openWeatherApiKey: "Your Api Key here"
 
 frontend: 
   image: 686255941063.dkr.ecr.ap-south-1.amazonaws.com/frontend:05866b3ec6d58741c161ea2bd229d26143f51d95

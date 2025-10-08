@@ -88,7 +88,7 @@ Login:
 ```kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d```
 ## 🔄 CI/CD Workflow (GitHub Actions)
 Stages:
--Build & Test – Install dependencies, run pytest, perform SonarQube scan.
--Security Scan & Push – Trivy image scan, build and push image to ECR.
--Deploy – Update Helm values and trigger ArgoCD sync to EKS.
--Workflow file: .github/workflows/ci-cd.yml
+- Build & Test – Install dependencies, run pytest, perform SonarQube scan.
+- Security Scan & Push – Trivy image scan, build and push image to ECR.
+- Deploy – Update Helm values and trigger ArgoCD sync to EKS.
+- Workflow file: .github/workflows/ci-cd.yml

@@ -47,56 +47,48 @@ docker-compose up --build
 ```
 ### Local URLs:
 
-Frontend → http://localhost:5000
-
-Weather API → http://localhost:5001
-
-Air Check API → http://localhost:5002
-
-Redis → localhost:6379
+1.Frontend → http://localhost:500
+2.Weather API → http://localhost:5001
+3.Air Check API → http://localhost:5002
+4.Redis → localhost:6379
 
 ## ☁️ Deploy on AWS EKS
 
 1. Provision Infrastructure with Terraform
+```
 cd terraform/
 terraform init
-terraform apply 
+terraform apply
+``` 
 Creates:
-
-VPC
-
-EKS Cluster
-
-ECR Repository
-
-S3 Bucket (Terraform state)
+-VPC
+-EKS Cluster
+-ECR Repository
+-S3 Bucket (Terraform state)
 
 2. Deploy Helm Chart
-cd helm/weather-air-app
-helm upgrade --install weather-app .
+```
+cd helm/weather-air
+helm upgrade --install weather-app.
+```
 Check deployment:
-kubectl get pods,svc,ingress
+```kubectl get pods,svc,ingress```
 ## 🚀 Install Argo CD on EKS
-# Create namespace
+1.Create namespace
 kubectl create namespace argocd
 
-# Add Helm repo & install Argo CD
-helm repo add argo https://argoproj.github.io/argo-helm
+2.Add Helm repo & install Argo CD
+```helm repo add argo https://argoproj.github.io/argo-helm
 helm repo update
 helm install argocd argo/argo-cd -n argocd
-
+```
 # Verify pods
-kubectl get pods -n argocd
+```kubectl get pods -n argocd```
 Login: 
-kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+```kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d```
 ## 🔄 CI/CD Workflow (GitHub Actions)
-
 Stages:
-
 Build & Test – Install dependencies, run pytest, perform SonarQube scan.
-
 Security Scan & Push – Trivy image scan, build and push image to ECR.
-
 Deploy – Update Helm values and trigger ArgoCD sync to EKS.
-
 Workflow file: .github/workflows/ci-cd.yml

@@ -82,7 +82,7 @@ kubectl create namespace argocd
 helm repo update
 helm install argocd argo/argo-cd -n argocd
 ```
-Verify pods
+3. Verify pods
 ```kubectl get pods -n argocd```
 Login: 
 ```kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d```
@@ -92,3 +92,8 @@ Stages:
 - Security Scan & Push – Trivy image scan, build and push image to ECR.
 - Deploy – Update Helm values and trigger ArgoCD sync to EKS.
 - Workflow file: .github/workflows/ci-cd.yml
+
+## 🌐 DNS Configuration
+
+- Configured a free domain name (mapped to ingress endpoint)
+- Managed via NGINX ingress controller

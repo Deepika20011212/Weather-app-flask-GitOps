@@ -82,7 +82,7 @@ kubectl create namespace argocd
 helm repo update
 helm install argocd argo/argo-cd -n argocd
 ```
-# Verify pods
+Verify pods
 ```kubectl get pods -n argocd```
 Login: 
 ```kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d```

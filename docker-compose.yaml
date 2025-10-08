@@ -16,7 +16,7 @@ services:
     ports:
       - "5001:5001"
     environment:
-      - OPENWEATHER_API_KEY= ${{ secrets.OPENWEATHER_API_KEY }}
+      - OPENWEATHER_API_KEY= "Your Api Key"
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - USE_REDIS=true
@@ -29,7 +29,7 @@ services:
     ports:
       - "5002:5002"
     environment:
-      - OPENWEATHER_API_KEY=0a8c75ab445dfbd93f1ac7972d097e40
+      - OPENWEATHER_API_KEY="Your Api Key"
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - USE_REDIS=true
